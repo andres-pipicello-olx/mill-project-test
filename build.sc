@@ -5,7 +5,13 @@ object foo extends Module {
     println(string)
   }
 
-  def delegator() = T.command {
+  def works() = T.command {
+    println(T.ctx().dest.toString())
+    delegatee("dummy")()
+  }
+
+  def doesNotWorks() = T.command {
     delegatee(T.ctx().dest.toString())()
   }
+
 }
