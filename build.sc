@@ -1,17 +1,9 @@
 import mill._
+import mill.api.Loose
+import mill.define.Target
+import mill.scalalib.JavaModule
+import $file.dir.dep
 
-object foo extends Module {
-  def delegatee(string: String) = T.command {
-    println(string)
-  }
-
-  def works() = T.command {
-    println(T.ctx().dest.toString())
-    delegatee("dummy")()
-  }
-
-  def doesNotWorks() = T.command {
-    delegatee(T.ctx().dest.toString())()
-  }
-
+object foo extends JavaModule {
+  override def upstreamAssemblyClasspath: Target[Loose.Agg[PathRef]] = dir.dep.dep.upstreamAssemblyClasspath
 }
